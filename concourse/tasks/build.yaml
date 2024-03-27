@@ -8,7 +8,7 @@ image_resource:
     tag: "18.17.0" 
 
 inputs:
-  - name: source-code
+  - name: repo
 
 outputs:
   - name: built-artifacts
@@ -19,13 +19,13 @@ run:
     - -exc
     - |
       # Navigate to the source code directory
-      cd source-code
+      cd repo
       
       # Install dependencies
       npm install
       
       # Build the application (replace this command with your actual build command)
-      npm run build  # or any other command to build your application
+      npx webpack
       
       # Copy built artifacts to the output directory
       mkdir -p ../built-artifacts

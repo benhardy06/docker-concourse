@@ -3,7 +3,7 @@ resources:
   type: git
   source:
     uri: git@github.com:benhardy06/docker-concourse.git
-    branch: master
+    branch: main
     private_key: |
         -----BEGIN OPENSSH PRIVATE KEY-----
         b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABA0V/Gbbg
@@ -24,7 +24,7 @@ jobs:
       
       # Step 2: Build the application
       - task: build
-        file: concourse/tasks/build.yaml
+        file: repo/concourse/tasks/build.yaml
         input_mapping:
           repo: repo
         output_mapping:
