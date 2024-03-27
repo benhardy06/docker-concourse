@@ -26,6 +26,9 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
+    client: {
+      logging: 'none'
+    },
     compress: true,
     port: 9000,
   },
