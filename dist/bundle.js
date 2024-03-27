@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",(function(){var e;(e=document.createElement("h1")).textContent="Hello, World!",document.getElementById("app").appendChild(e)}));

@@ -1,0 +1,50 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: git@github.com:benhardy06/concourse-example.git
+    branch: master
+    private_key: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABA0V/Gbbg
+        6IMoI1nuQBlP+zAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIFtlOHasLABVXPVj
+        Udyp8Vv25hZ+HehbhZXYG38y3NDkAAAAoCuMfTCqeUYbeKj0EBlfL6d5mW4OV4Kx1Tm0d/
+        AAu+MjVZNdTDRrvkYm4DIusBzeQ3gZxUZzEdFsEVxoSqORIujTKQgsZVi5fbQ+ro29BevC
+        sESfeEB4gQnWAhHAuh9/913n+vqtH1s41cfgSp9UTl4dnsZOJqxd4/0ifbE6dEHr4JpSU1
+        POoqFmXWhaQ8Z2zGzaYIyP2PYql9Rqse8elt4=
+        -----END OPENSSH PRIVATE KEY-----
+    private_key_passphrase: "concourse"
+ 
+jobs:
+- name: hello-world-job
+  plan:
+  - get: repo
+    trigger: true
+  - task: create-commit
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: gitea/gitea
+      inputs:
+      - name: repo
+      outputs:
+      - name: repo
+      params:
+        EMAIL: benhardy06@gmail.com
+        GIT_AUTHOR_NAME: benhardy06
+      run:
+        path: sh
+        args:
+        - -cx
+        - |
+          cd repo
+          date +%Y-%m-%d > todays-date
+          git add ./todays-date
+          git config --global user.email $EMAIL
+          git config --global user.name $GIT_AUTHOR_NAME
+          git commit -m "Update todays date"
+  - put: repo
+    params:
+      repository: repo
