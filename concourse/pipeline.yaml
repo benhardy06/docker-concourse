@@ -1,10 +1,10 @@
 resources:
-  - name: repo
-    type: git
-    source:
-      uri: 'git@github.com:benhardy06/docker-concourse.git'
-      branch: main
-      private_key: |
+- name: repo
+  type: git
+  source:
+    uri: git@github.com:benhardy06/docker-concourse.git
+    branch: master
+    private_key: |
         -----BEGIN OPENSSH PRIVATE KEY-----
         b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABA0V/Gbbg
         6IMoI1nuQBlP+zAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIFtlOHasLABVXPVj
@@ -13,75 +13,19 @@ resources:
         sESfeEB4gQnWAhHAuh9/913n+vqtH1s41cfgSp9UTl4dnsZOJqxd4/0ifbE6dEHr4JpSU1
         POoqFmXWhaQ8Z2zGzaYIyP2PYql9Rqse8elt4=
         -----END OPENSSH PRIVATE KEY-----
-      private_key_passphrase: concourse
+    private_key_passphrase: "concourse"
+ 
 jobs:
   - name: build-and-deploy
     plan:
+      # Step 1: Get the repository
       - get: repo
         trigger: true
-
-    # Step 2: Build the application
-      # - task: build
-      #   config:
-      #     platform: linux
-
-      #     image_resource:
-      #       type: registry-image
-      #       source:
-      #         repository: node
-      #         tag: "18.17.0" 
-
-      #     inputs:
-      #       - name: repo
-
-      #     outputs:
-      #       - name: built-artifacts
-
-      #     run:
-      #       path: sh
-      #       args:
-      #         - -exc
-      #         - |
-      #           # Navigate to the source code directory
-      #           cd source-code
-                  
-      #           # Install dependencies
-      #           npm install
-                  
-      #           # Build the application (replace this command with your actual build command)
-      #           npm run build  # or any other command to build your application
-                  
-      #           # Copy built artifacts to the output directory
-      #           mkdir -p ../built-artifacts
-      #           cp -r build/* ../built-artifacts/
-
-
-        
-
-
-# jobs:
-# - name: hello-world-job
-#   plan:
-#   - get: repo
-#     trigger: true
-#   - task: create-commit
-#     config:
-#       platform: linux
-#       image_resource:
-#         type: registry-image
-#         source:
-#           repository: gitea/gitea
-#       inputs:
-#       - name: repo
-#       outputs:
-#       - name: repo
-#       params:
-#         EMAIL: benhardy06@gmail.com
-#         GIT_AUTHOR_NAME: benhardy06
-#       run:
-#         path: sh
-#         args:
       
-#   - put: repo
-#     params:
-#       repository: repo
+      # Step 2: Build the application
+      - task: build
+        file: concourse/tasks/build.yaml
+        input_mapping:
+          repo: repo
+        output_mapping:
+          built-artifacts: built-artifacts
