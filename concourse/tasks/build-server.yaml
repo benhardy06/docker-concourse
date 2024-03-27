@@ -1,11 +1,10 @@
-
 platform: linux
 
 image_resource:
   type: registry-image
   source:
-    repository: node
-    tag: "18.17.0" 
+    repository: python
+    tag: "3.9"
 
 inputs:
   - name: repo
@@ -18,8 +17,7 @@ run:
   args:
     - -exc
     - |
-      # Navigate to the source code directory
+
       cd repo
-      
-      # Install dependencies
-      npx webpack serve --config webpack.config.js
+      # Start the HTTP server
+      python -m http.server 8000
