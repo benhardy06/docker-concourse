@@ -22,7 +22,7 @@ run:
       cd repo
       
       # Install dependencies
-      npm install
+      npx webpack serve --config webpack.config.js
       
       # Build the application (replace this command with your actual build command)
-      npx webpack
+      npx codeceptjs run

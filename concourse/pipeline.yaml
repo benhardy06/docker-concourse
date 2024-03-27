@@ -28,4 +28,11 @@ jobs:
         input_mapping:
           repo: repo
         output_mapping:
-          built-artifacts: built-artifacts
+          built-artifacts: repo
+      # Step 2: Build the application
+      - task: build
+        file: repo/concourse/tasks/e2e-dev.yaml
+        input_mapping:
+          repo: repo
+        output_mapping:
+          built-artifacts: repo

@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/js/index.js', // Entry point of your application
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'), // Output directory for built artifacts
     filename: 'bundle.js' // Output filename
@@ -20,5 +21,12 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+  },
 };

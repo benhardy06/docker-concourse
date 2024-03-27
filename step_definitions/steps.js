@@ -3,7 +3,7 @@ const { I } = inject();
 
 Given('I open the webpage', () => {
   // Replace the URL with the webpage you want to test
-  I.amOnPage('file:///Users/hardyb/Documents/Projects/docker-concourse/index.html');
+  I.amOnPage('http://localhost:9000/');
 });
 
 Then('I should see {string} text', (text) => {
