@@ -1,0 +1,32 @@
+
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: node
+    tag: "18.17.0" 
+
+inputs:
+  - name: source-code
+
+outputs:
+  - name: built-artifacts
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      # Navigate to the source code directory
+      cd source-code
+      
+      # Install dependencies
+      npm install
+      
+      # Build the application (replace this command with your actual build command)
+      npm run build  # or any other command to build your application
+      
+      # Copy built artifacts to the output directory
+      mkdir -p ../built-artifacts
+      cp -r build/* ../built-artifacts/
