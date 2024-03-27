@@ -3,7 +3,7 @@ resources:
     type: git
     source:
       uri: 'git@github.com:benhardy06/docker-concourse.git'
-      branch: master
+      branch: main
       private_key: |
         -----BEGIN OPENSSH PRIVATE KEY-----
         b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABA0V/Gbbg
