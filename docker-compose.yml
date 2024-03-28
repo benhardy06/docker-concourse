@@ -8,6 +8,22 @@ services:
       POSTGRES_PASSWORD: &PG_PASSWORD concourse_pass
       POSTGRES_USER: &PG_USER concourse_user
       PGDATA: /database
+  chrome_installer:
+    image: ubuntu:latest  # You can use any base image here
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket for Docker-in-Docker setup
+    command: bash -c "apt-get update \
+                      && apt-get install -y \
+                          wget \
+                          gnupg \
+                          ca-certificates \
+                      && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+                      && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google-chrome.list \
+                      && apt-get update \
+                      && apt-get install -y \
+                          google-chrome-stable \
+                      && rm -rf /var/lib/apt/lists/*"
+    restart: "no"  # No need to restart this service
 
   concourse:
     image: concourse/concourse:7.9.1-ubuntu
