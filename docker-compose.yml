@@ -23,8 +23,28 @@ services:
                       && apt-get install -y \
                           google-chrome-stable \
                       && rm -rf /var/lib/apt/lists/*"
+
+              ENV CHROME_BIN=/usr/bin/google-chrome
     restart: "no"  # No need to restart this service
 
+  codeceptjs:
+    image: codeceptjs/codeceptjs
+    depends_on:
+      - firefox
+      - web
+    volumes:
+      - .:/tests
+  web:
+    image: node
+    command: node app/server.js
+    volumes:
+      - .:/app
+  firefox:
+    image: selenium/standalone-firefox-debug:2.53.0
+    ports:
+      - '4444'
+      - '5900'
+      
   concourse:
     image: concourse/concourse:7.9.1-ubuntu
     platform: linux/amd64
