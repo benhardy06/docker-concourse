@@ -44,7 +44,7 @@ services:
     ports:
       - '4444'
       - '5900'
-      
+
   concourse:
     image: concourse/concourse:7.9.1-ubuntu
     platform: linux/amd64
