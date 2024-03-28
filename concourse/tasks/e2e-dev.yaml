@@ -21,5 +21,7 @@ run:
       # Navigate to the source code directory
       cd repo
       
+      npx playwright install  
+
       # Build the application (replace this command with your actual build command)
       npx codeceptjs run
