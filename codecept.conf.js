@@ -4,7 +4,7 @@ exports.config = {
     Playwright: {
       url: 'index.html',
       show: false,
-      browser: 'chromium'
+      browser: 'chrome'
     }
   },
   mocha: {},
