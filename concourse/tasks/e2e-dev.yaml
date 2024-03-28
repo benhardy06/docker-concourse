@@ -23,5 +23,7 @@ run:
       
       npx playwright install  
 
+      npx playwright install-deps
+
       # Build the application (replace this command with your actual build command)
       npx codeceptjs run
