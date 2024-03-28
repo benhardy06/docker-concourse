@@ -4,8 +4,7 @@ platform: linux
 image_resource:
   type: registry-image
   source:
-    repository: node
-    tag: "18.17.0" 
+    repository: alpine-chrome 
 
 inputs:
   - name: repo
@@ -19,18 +18,6 @@ run:
     - -exc
     - |
       # Navigate to the source code directory
-
-      RUN apt-get update \
-          && apt-get install -y \
-              wget \
-              gnupg \
-              ca-certificates \
-          && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-          && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-          && apt-get update \
-          && apt-get install -y \
-              google-chrome-stable \
-          && rm -rf /var/lib/apt/lists/*
 
       cd repo
       
