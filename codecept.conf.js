@@ -2,6 +2,7 @@ exports.config = {
   output: './output',
   helpers: {
     Playwright: {
+      headless: true,
       url: 'index.html',
       show: true,
       browser: 'chromium'
