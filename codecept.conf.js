@@ -4,7 +4,7 @@ exports.config = {
     Playwright: {
       headless: true,
       url: 'index.html',
-      show: true,
+      show: false,
       browser: 'chromium'
     }
   },
